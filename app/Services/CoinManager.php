@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Acumulado;
+use App\Models\Coin;
 use App\Repositories\CoinRepository;
 
 class CoinManager
@@ -18,6 +19,15 @@ class CoinManager
     {
         // Lógica para registrar la moneda insertada.
         $acumulado = Acumulado::firstOrNew([]);
+        $coin = Coin::where('value', $value)->first();
+
+        if ($coin) {
+            $coin->quantity += 1;
+            $coin->save();
+        } else {
+            // Manejar el caso en el que no se encuentra la moneda con el valor especificado
+            return 'La moneda no existe';
+        }
 
         // Suma el nuevo valor al valor acumulado actual
         $acumulado->valor_acumulado += $value;
@@ -49,5 +59,5 @@ class CoinManager
 
         // Retorna el valor acumulado actualizado
         return $acumulado->valor_acumulado;
-    } 
+    }
 }

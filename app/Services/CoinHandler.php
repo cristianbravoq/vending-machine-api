@@ -23,7 +23,23 @@ class CoinHandler
 
     public function returnCoinsInsertByUser()
     {
-        // Lógica para devolver las monedas insertadas por el usuario (cancelar la transacción).
+
+        // Obtén el valor total ingresado por el cliente (como se discutió anteriormente)
+        $valorTotalIngresado = $this->coinManager->getCoinInserted();
+
+        // Verifica si el valor total ingresado es mayor que cero
+        if ($valorTotalIngresado) {
+
+            $coinsToRefund = $this->coinRepository->calculateRefundCoins($valorTotalIngresado->valor_acumulado);
+
+            if ($this->refundCoins($coinsToRefund)) {
+                $this->coinManager->clearMoneyInserted();
+                return $coinsToRefund;
+            }
+        } else {
+            // El valor total ingresado es cero o negativo, no se puede realizar la cancelación
+            return 'No se puede cancelar la compra. No se ha ingresado dinero.';
+        }
     }
 
     public function updateCoin($coinId, $data)
@@ -46,5 +62,11 @@ class CoinHandler
     public function resetCoinsInserted()
     {
         return $this->coinManager->clearMoneyInserted();
+    }
+
+    private function refundCoins($coinsToRefund)
+    {
+        // Implementa la lógica para devolver las monedas al cliente aquí
+        return true; // Cambia esto según tu implementación real
     }
 }

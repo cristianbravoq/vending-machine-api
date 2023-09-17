@@ -43,4 +43,21 @@ class CoinRepository
 
         return $coin;
     }
+
+    // Función para calcular la cantidad de monedas necesarias para el reembolso
+    public function calculateRefundCoins($amountToRefund)
+    {
+        $coins = Coin::orderBy('value', 'desc')->get(); // Obtén las monedas en orden descendente por valor
+        $refundCoins = [];
+
+        foreach ($coins as $coin) {
+            while ($amountToRefund >= $coin->value && $coin->quantity > 0) {
+                $refundCoins[] = $coin->value;
+                $amountToRefund -= $coin->value;
+                $coin->quantity--; // Resta una moneda de la cantidad disponible en la base de datos
+            }
+        }
+
+        return $refundCoins;
+    }
 }
