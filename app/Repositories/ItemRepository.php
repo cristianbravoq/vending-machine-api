@@ -23,7 +23,7 @@ class ItemRepository
         return $this->model->find($itemId);
     }
 
-    public function updateItem($itemId, $data)
+    public function updateItem($itemId)
     {
         $item = $this->model->find($itemId);
 
@@ -31,7 +31,8 @@ class ItemRepository
             return null; // Opcional: Manejar el caso en el que el producto no existe.
         }
 
-        $item->update($data);
+        $item->quantity -= 1;
+        $item->save();
 
         return $item;
     }

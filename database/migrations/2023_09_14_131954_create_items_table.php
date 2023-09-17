@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name'); // Nombre del producto (por ejemplo, "Water", "Juice", "Soda").
             $table->decimal('price', 5, 2); // Precio del producto (por ejemplo, 0.65, 1.00, 1.50).
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

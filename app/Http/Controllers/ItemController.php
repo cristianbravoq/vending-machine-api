@@ -6,8 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ItemHandler;
 
+/**
+* @OA\Info(title="API Usuarios", version="1.0")
+*
+* @OA\Server(url="http://swagger.local")
+*/
+
 class ItemController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/items",
+     *     summary="Obtener todos los productos",
+     *     description="Obtiene una lista de todos los productos disponibles en la máquina expendedora.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de productos",
+     *     )
+     * )
+     */
     protected $itemHandler;
 
     public function __construct(ItemHandler $itemHandler)
@@ -32,14 +49,9 @@ class ItemController extends Controller
         return response()->json($item);
     }
 
-    public function updateById(Request $request, $itemId)
+    public function updateById($itemId)
     {
-        $data = $request->validate([
-            'name' => 'string',
-            'price' => 'numeric',
-        ]);
-
-        $updatedItem = $this->itemHandler->updateItem($itemId, $data);
+        $updatedItem = $this->itemHandler->updateItem($itemId);
 
         if (!$updatedItem) {
             return response()->json(['message' => 'Item not found'], 404);

@@ -24,8 +24,13 @@ class ItemHandler
         return $this->itemRepository->getItemById($itemId);
     }
 
-    public function updateItem($itemId, $data)
+    public function updateItem($itemId)
     {
-        return $this->itemRepository->updateItem($itemId, $data);
+        return $this->itemRepository->updateItem($itemId);
+    }
+
+    public function saleProduct($itemId)
+    { 
+        return $this->itemRepository->updateItem($itemId);
     }
 }

@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('acumulados', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('valor_acumulado', 10, 2)->default(0.00);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -19,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('acumulados');
     }
 };

@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(CoinHandler::class, function ($app) {
-            return new CoinHandler($app->make(CoinRepository::class)); // Dependencia del repositorio
+            return new CoinHandler($app->make(CoinRepository::class), $app->make(CoinManager::class)); // Dependencia del repositorio
         });
 
         $this->app->bind(ItemHandler::class, function ($app) {

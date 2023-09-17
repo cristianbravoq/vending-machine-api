@@ -13,9 +13,9 @@ class ItemSeeder extends Seeder
     public function run(): void
     {
         DB::table('items')->insert([
-            ['name' => 'Water', 'price' => 0.65],
-            ['name' => 'Juice', 'price' => 1.00],
-            ['name' => 'Soda', 'price' => 1.50],
+            ['name' => 'Water', 'price' => 0.65, 'quantity' => 30],
+            ['name' => 'Juice', 'price' => 1.00, 'quantity' => 30],
+            ['name' => 'Soda', 'price' => 1.50, 'quantity' => 30],
         ]);
     }
 }

@@ -47,4 +47,15 @@ class CoinController extends Controller
         $coinsInserted = $this->coinHandler->getCoinsInserted();
         return response()->json($coinsInserted);
     }
+
+    public function insertCoin($coinValue)
+    {
+        $coinsInserted = $this->coinHandler->insertCoin($coinValue);
+        return response()->json($coinsInserted);
+    }
+
+     public function resetCoinInserted()
+    {
+        return $this->coinHandler->resetCoinsInserted();
+    }
 }
